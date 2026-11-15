@@ -1,23 +1,22 @@
-// ui.js — menggambar kartu dan teks info ke halaman
-function htmlKartu(c) {
-  return '<div class="kartu"><small>' + c.mk + '</small><h3>' + c.judul + '</h3>' +
-    '<small>' + new Date(c.dibuat).toLocaleDateString('id-ID') + '</small>' +
-    '<div class="aksi"><button data-aksi="semat" data-id="' + c.id + '">' +
-    (c.disematkan ? 'Lepas' : 'Sematkan') + '</button>' +
-    '<button data-aksi="hapus" data-id="' + c.id + '">Hapus</button></div></div>';
+// ui.js — menggambar daftar dan teks info ke halaman, memakai komponen dari komponen.js
+import { KartuCatatan, PesanKosong } from './komponen.js';
+
+function isi(wadah, daftar, teksKosong) {
+  if (daftar.length === 0) {
+    wadah.replaceChildren(PesanKosong(teksKosong));
+    return;
+  }
+  wadah.replaceChildren(...daftar.map((c) => KartuCatatan(c)));
 }
 
-export function render(hasil) {
-  const sematan = document.getElementById('sematan');
-  const semua = document.getElementById('semua');
+// peringatan: pesan dari penyimpanan (kosong bila tidak ada masalah)
+export function render(hasil, peringatan = '') {
   const info = document.getElementById('info');
   const disemat = hasil.filter((c) => c.disematkan);
 
-  sematan.innerHTML = disemat.length === 0
-    ? '<p class="kosong">Belum ada catatan yang disematkan.</p>'
-    : disemat.map(htmlKartu).join('');
-  semua.innerHTML = hasil.length === 0
-    ? '<p class="kosong">Tidak ada catatan.</p>'
-    : hasil.map(htmlKartu).join('');
-  info.textContent = hasil.length + ' catatan, ' + disemat.length + ' disematkan';
+  isi(document.getElementById('sematan'), disemat, 'Belum ada catatan yang disematkan.');
+  isi(document.getElementById('semua'), hasil, 'Tidak ada catatan.');
+
+  const ringkas = hasil.length + ' catatan, ' + disemat.length + ' disematkan';
+  info.textContent = peringatan ? ringkas + ' — ' + peringatan : ringkas;
 }
