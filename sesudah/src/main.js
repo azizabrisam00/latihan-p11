@@ -1,16 +1,12 @@
 // main.js — titik masuk: menyambungkan state dan ui, memasang event
 import { tambah, alihSemat, hapus, cari } from './state.js';
 import { render } from './ui.js';
-import { pesanPenyimpanan } from './storage.js';   // di bawah import ui.js
-
-function segarkan() {
-  render(cari(kataCari), pesanPenyimpanan());
-}
+import { pesanPenyimpanan } from './storage.js';
 
 let kataCari = '';
 
 function segarkan() {
-  render(cari(kataCari));
+  render(cari(kataCari), pesanPenyimpanan());
 }
 
 document.getElementById('form').addEventListener('submit', function (e) {
