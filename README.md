@@ -9,3 +9,5 @@ Latihan P11: memecah monolit Catatan Kuliah menjadi ES Modules.
 ## Catatan Penggunaan AI
 
 Perubahan pada `sesudah/src/storage.js` dibuat dengan bantuan GitHub Copilot berdasarkan panduan tugas pada 3 November 2026. Kode mengikuti perilaku penyimpanan sebelumnya dan telah diperiksa untuk kesalahan editor. Uji runtime belum dijalankan karena Node.js tidak tersedia di lingkungan kerja.
+
+P12 (15 Nov 2026): `src/komponen.js`, `src/ui.js`, `src/storage.js` dibantu Claude (Anthropic).
